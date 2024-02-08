@@ -1,34 +1,17 @@
 from rest_framework import status
+from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import serializers
-
-from django.core.validators import MinLengthValidator
-from .validators import number_validator, special_char_validator, letter_validator
-from usermanagement.users.models import BaseUser , Profile
-from usermanagement.api.mixins import ApiAuthMixin
-from usermanagement.users.selectors import get_profile
-from usermanagement.users.services import register 
-from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
-
 from drf_spectacular.utils import extend_schema
-
-
-class ProfileApi(ApiAuthMixin, APIView):
-
-    class OutPutSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Profile 
-            fields = ("bio", "posts_count", "subscriber_count", "subscription_count")
-
-    @extend_schema(responses=OutPutSerializer)
-    def get(self, request):
-        query = get_profile(user=request.user)
-        return Response(self.OutPutSerializer(query, context={"request":request}).data)
+from usermanagement.users.models import BaseUser
+from usermanagement.api.mixins import ApiAuthMixin
+from usermanagement.users.services import register
+from django.core.validators import MinLengthValidator
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
+from .validators import number_validator, special_char_validator, letter_validator
 
 
 class RegisterApi(APIView):
-
 
     class InputRegisterSerializer(serializers.Serializer):
         email = serializers.EmailField(max_length=255)

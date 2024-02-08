@@ -44,18 +44,12 @@ _
 +usermanagement/users/migrations/__init__.py,3\5\35ac07a2397da8b3986e512bf44520ce25ce9e98
 8
 mypy.ini,4\e\4e4336a100ab92aff37fc784daba7865edad7708
-Q
-!usermanagement/users/selectors.py,4\9\496797f372ac970fcf27234557fa5761b2e14b33
 L
 usermanagement/users/apps.py,3\9\39c169089845ac32d84de0f5a8d1b6e714baa117
 R
 "usermanagement/users/validators.py,a\c\acb4a1060b3126a42901d9ab46a753101f33d5a8
 @
 requirements.txt,1\9\19359a61ae2446b51b549167b014da2fcf265768
-P
- usermanagement/users/services.py,d\7\d7f86c437d798a218ff8c51aaca57d35b94eb1d9
-L
-usermanagement/users/apis.py,c\e\ce353cc8089eee8cd59ec7c4a268a2b92431630a
 9
 	setup.cfg,8\c\8c91c0296909b5ea3c496fde69e9dc44a6c6ae5f
 Z
@@ -64,8 +58,6 @@ P
  usermanagement/users/__init__.py,5\c\5c286025426b0bd683bb6bbbf0f57aed4e987a75
 >
 wait-for-it.sh,0\7\0787645e1b0808b718bda7cb9f13dd1e488b85e5
-M
-usermanagement/users/admin.py,a\0\a0f0f773fd01a34ec57e0ae3492cba026b7a4499
 9
 	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
 Y
