@@ -68,6 +68,19 @@ class Profile(models.Model):
         return f"{self.user} >> {self.bio}"
 
 
+class Company(BaseModel):
+    title = models.CharField(max_length=155)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=155)
+    companies = models.ManyToManyField(Company)
+
+
+class Permission(models.Model):
+    name = models.CharField(max_length=155)
+    code_name = models.CharField(max_length=155)
+    groups = models.ManyToManyField(Group)
 
 
 

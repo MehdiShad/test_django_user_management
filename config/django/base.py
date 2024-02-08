@@ -4,10 +4,11 @@ from config.env import env, BASE_DIR
 env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=ug_ucl@yi6^mrcjyz%(u0%&g2adt#bz3@yos%#@*t#t!ypx=a'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", False)
+
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
@@ -80,21 +81,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='psql://admin:test@127.0.0.1:5432/usermanagement'),
+    'default': env.db('DATABASE_URL', default='psql://postgres:2011@127.0.0.1:5432/usermanagement'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-if os.environ.get('GITHUB_WORKFLOW'):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'github_actions',
-            'USER': 'admin',
-            'PASSWORD': 'test',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
+
 
 
 # Password validation
