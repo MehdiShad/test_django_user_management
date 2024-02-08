@@ -7,6 +7,6 @@ def create_user(*, email: str, password: str) -> BaseUser:
 
 
 @transaction.atomic
-def register(*, bio:str|None, email:str, password:str) -> BaseUser:
+def register(*, email: str, password: str) -> BaseUser:
     user = create_user(email=email, password=password)
     return user

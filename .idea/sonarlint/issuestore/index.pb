@@ -48,8 +48,6 @@ L
 usermanagement/users/apps.py,3\9\39c169089845ac32d84de0f5a8d1b6e714baa117
 R
 "usermanagement/users/validators.py,a\c\acb4a1060b3126a42901d9ab46a753101f33d5a8
-@
-requirements.txt,1\9\19359a61ae2446b51b549167b014da2fcf265768
 9
 	setup.cfg,8\c\8c91c0296909b5ea3c496fde69e9dc44a6c6ae5f
 Z
@@ -124,8 +122,6 @@ J
 config/tasks.py,b\0\b0727e45d44cc69182786d008dbb94b1138e7067
 F
 config/django/local.py,6\5\65f3fed2bf87eaf874d3c4812ab23e4c13755d03
-E
-requirements/base.txt,a\5\a53d00307871abc09608b3e4fdabb0cfc4ae7d9b
 E
 config/django/test.py,d\f\dfcf3db37d58101453e3fcf024506789b01604a7
 >

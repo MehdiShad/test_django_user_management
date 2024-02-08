@@ -19,6 +19,7 @@ LOCAL_APPS = [
     'usermanagement.common.apps.CommonConfig',
     'usermanagement.users.apps.UsersConfig',
     'usermanagement.authentication.apps.AuthenticationConfig',
+    'usermanagement.inventory.apps.InventoryConfig',
 ]
 
 THIRD_PARTY_APPS = [
