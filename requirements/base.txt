@@ -28,4 +28,6 @@ factory-boy==3.2.1
 pytest==7.2.0
 pytest-django==4.5.2
 
+django-guardian==2.4.0
 
+rules==3.3

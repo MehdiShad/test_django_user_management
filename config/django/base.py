@@ -10,7 +10,8 @@ SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = env.bool("DEBUG", False)
 
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -30,6 +31,8 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'drf_spectacular',
     'django_extensions',
+    'rules',
+    'guardian',
 ]
 
 INSTALLED_APPS = [
@@ -122,12 +125,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/medias/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 REST_FRAMEWORK = {
@@ -163,3 +174,15 @@ from config.settings.celery import *  # noqa
 from config.settings.swagger import *  # noqa
 #from config.settings.sentry import *  # noqa
 #from config.settings.email_sending import *  # noqa
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'guardian.backends.ObjectPermissionBackend',
+)
+
+# AUTHENTICATION_BACKENDS = (
+#     'rules.permissions.ObjectPermissionBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# )
+

@@ -9,11 +9,21 @@ from django.shortcuts import redirect
 # from usermanagement.inventory.apps import CAN_ADD_NEW_PRODUCT_API
 # from rest_framework.response import Response
 
+from guardian.shortcuts import get_objects_for_user
+
+
+
+@login_required
+@permission_required("inventory.view_product")
+def product_listing(request):
+    product_data = get_objects_for_user(
+        request.user, "inventory.dg_view_product", klass=Product
+    )
 
 
 @login_required
 @permission_required(
-    {("product.add_product"), ("product.can_add_new_product")}
+    {("inventory.add_product"), ("inventory.can_add_new_product")}
 )
 def create_product(request):
     if request.method == "POST":

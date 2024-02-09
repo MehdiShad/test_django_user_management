@@ -10,7 +10,7 @@ class Product(BaseModel):
     is_active = models.BooleanField(default=False)
 
     class Meta:
-        permissions = [('can_add_new_product', 'can add new product')]
+        permissions = [('can_add_new_product', 'can add new product'), ('dg_view_product', 'OBP can view product')]
         
     def __str__(self):
         return self.name
