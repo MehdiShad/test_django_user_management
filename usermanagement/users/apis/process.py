@@ -3,11 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, serializers
 from drf_spectacular.utils import extend_schema
-from usermanagement.api.pagination import LimitOffsetPagination, get_paginated_response_context
 from usermanagement.users.models import Process
-from usermanagement.core.exceptions import handle_validation_error, error_response, success_response
+from usermanagement.api.mixins import ApiAuthMixin
 from usermanagement.users.services import create_process
 from usermanagement.users.selectors import get_all_processes
+from usermanagement.api.pagination import LimitOffsetPagination, get_paginated_response_context
+from usermanagement.core.exceptions import handle_validation_error, error_response, success_response
+
 
 class OutPutProcessesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,7 +38,7 @@ class CustomProcessesMultiResponseSerializer(serializers.Serializer):
         fields = ('is_success', 'data')
 
 
-class ProcessesApi(APIView):
+class ProcessesApi(ApiAuthMixin, APIView):
 
     class Pagination(LimitOffsetPagination):
         default_limit = 25
@@ -76,14 +78,15 @@ class ProcessesApi(APIView):
             return Response(validation_result, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            attendance = get_all_processes()
+            attendance = get_all_processes(request)
+            return get_paginated_response_context(
+                request=request,
+                pagination_class=self.Pagination,
+                serializer_class=OutPutProcessesSerializer,
+                queryset=attendance,
+                view=self,
+            )
         except Exception as ex:
             response = error_response(message=str(ex))
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-        return get_paginated_response_context(
-            request=request,
-            pagination_class=self.Pagination,
-            serializer_class=OutPutProcessesSerializer,
-            queryset=attendance,
-            view=self,
-        )
+

@@ -84,8 +84,6 @@ class CompanyGroups(models.Model):
 
 
 
-
-
 class BaseUser(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(verbose_name="email address", unique=True)
@@ -93,6 +91,7 @@ class BaseUser(BaseModel, AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     type = models.CharField(max_length=50, choices=UserTypesChoices.choices, default='2')
     is_staff = models.BooleanField(default=False)
+    last_company_logged_in = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
 
     objects = BaseUserManager()
 

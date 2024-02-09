@@ -1,6 +1,7 @@
 from django.contrib import admin
 from usermanagement.users import models
-# Register your models here.
+from guardian.admin import GuardedModelAdmin
+from guardian.shortcuts import get_objects_for_user, assign_perm
 
 
 @admin.register(models.BaseUser)
@@ -22,7 +23,7 @@ class BaseUserAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Company)
-class CompanyAdmin(admin.ModelAdmin):
+class CompanyAdmin(GuardedModelAdmin):
     list_display = ['id', 'title']
     list_display_links = ['id', 'title']
 
@@ -43,12 +44,12 @@ class BaseGroupAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Process)
-class ProcessAdmin(admin.ModelAdmin):
+class ProcessAdmin(GuardedModelAdmin):
     list_display = ['id', 'name', 'created_by', 'is_deleted', 'company']
     list_display_links = ['id', 'name']
 
 
 @admin.register(models.Route)
-class RouteAdmin(admin.ModelAdmin):
+class RouteAdmin(GuardedModelAdmin):
     list_display = ['id', 'name']
     list_display_links = ['id', 'name']
