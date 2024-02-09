@@ -19,7 +19,7 @@ def register(*, email: str, password: str) -> BaseUser:
     {
         ("users.add_process"),
         ("users.dg_can_start_process"),
-    }
+    }, raise_exception=True
 )
 def create_process(reqeust: HttpRequest, **kwargs):
 

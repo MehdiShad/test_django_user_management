@@ -2,6 +2,11 @@ from django.contrib import admin
 from usermanagement.users import models
 from guardian.admin import GuardedModelAdmin
 from guardian.shortcuts import get_objects_for_user, assign_perm
+from guardian.models import GroupObjectPermission, UserObjectPermission
+
+@admin.register(GroupObjectPermission)
+class GroupObjectPermissionAdmin(admin.ModelAdmin):
+    list_display = ['id']
 
 
 @admin.register(models.BaseUser)

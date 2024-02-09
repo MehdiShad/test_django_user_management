@@ -63,6 +63,8 @@ class ProcessesApi(ApiAuthMixin, APIView):
             if not process['is_success']:
                 return Response(process, status=status.HTTP_400_BAD_REQUEST)
             return Response(CustomProcessesSingleResponseSerializer(process, context={"request": request}).data)
+        except PermissionError as per:
+            return error_response(message=str("You can't Start a process"))
         except Exception as ex:
             response = error_response(message=str(ex))
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
