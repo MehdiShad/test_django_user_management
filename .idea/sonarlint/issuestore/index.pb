@@ -96,8 +96,6 @@ G
 docker/local.Dockerfile,7\2\725bc0adc166896524da69dc7db534070a8680eb
 L
 docker/production.Dockerfile,6\4\64e6e11e29d81373fdf2bf67dd2ee0ee6857a452
-F
-config/settings/jwt.py,8\a\8a4c2992f88dcac1d74c132f0c5f280baa7ab3c3
 P
  config/settings/email_sending.py,8\2\82c1af238b7a6a537f23e49c08c33420bf558f68
 K
