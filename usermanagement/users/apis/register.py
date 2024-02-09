@@ -8,23 +8,22 @@ from usermanagement.api.mixins import ApiAuthMixin
 from usermanagement.users.services import register
 from django.core.validators import MinLengthValidator
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
-from .validators import number_validator, special_char_validator, letter_validator
+from usermanagement.users.validators import number_validator, special_char_validator, letter_validator
 
 
 class RegisterApi(APIView):
-
     class InputRegisterSerializer(serializers.Serializer):
         email = serializers.EmailField(max_length=255)
         password = serializers.CharField(
-                validators=[
-                        number_validator,
-                        letter_validator,
-                        special_char_validator,
-                        MinLengthValidator(limit_value=10)
-                    ]
-                )
+            validators=[
+                number_validator,
+                letter_validator,
+                special_char_validator,
+                MinLengthValidator(limit_value=10)
+            ]
+        )
         confirm_password = serializers.CharField(max_length=255)
-        
+
         def validate_email(self, email):
             if BaseUser.objects.filter(email=email).exists():
                 raise serializers.ValidationError("email Already Taken")
@@ -33,18 +32,17 @@ class RegisterApi(APIView):
         def validate(self, data):
             if not data.get("password") or not data.get("confirm_password"):
                 raise serializers.ValidationError("Please fill password and confirm password")
-            
+
             if data.get("password") != data.get("confirm_password"):
                 raise serializers.ValidationError("confirm password is not equal to password")
             return data
-
 
     class OutPutRegisterSerializer(serializers.ModelSerializer):
 
         token = serializers.SerializerMethodField("get_token")
 
         class Meta:
-            model = BaseUser 
+            model = BaseUser
             fields = ("email", "token", "created_at", "updated_at")
 
         def get_token(self, user):
@@ -58,20 +56,19 @@ class RegisterApi(APIView):
 
             return data
 
-
     @extend_schema(request=InputRegisterSerializer, responses=OutPutRegisterSerializer)
     def post(self, request):
         serializer = self.InputRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
             user = register(
-                    email=serializer.validated_data.get("email"),
-                    password=serializer.validated_data.get("password"),
-                    )
+                email=serializer.validated_data.get("email"),
+                password=serializer.validated_data.get("password"),
+            )
         except Exception as ex:
             return Response(
-                    f"Database Error {ex}",
-                    status=status.HTTP_400_BAD_REQUEST
-                    )
-        return Response(self.OutPutRegisterSerializer(user, context={"request":request}).data)
+                f"Database Error {ex}",
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(self.OutPutRegisterSerializer(user, context={"request": request}).data)
 
